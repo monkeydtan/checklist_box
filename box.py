@@ -3,53 +3,35 @@ from tkinter import messagebox
 
 app = tk.Tk()
 app.title("List Box")
-app.geometry("600x400")
+app.geometry("400x200")
+font1 = ['Arial',14,'normal']
+
+# สร้างฟังก์ชัน
+def select():
+    #selected_list.delete(0,tk.END) # เริ่มจากการล้างข้อมูลทางขวาก่อนใส่ข้อมูลใหม่
+    selected_menu = list_box.curselection() #ดึงรายการจาก Listbox ทางซ้ายมา
+    for i in selected_menu:
+        colors = list_box.get(i)
+        selected_list.insert(tk.END,colors)
 
 # หัวข้อ
-header = tk.Label(app,text="Checklist Box",font=('Arial',14))
-header.pack(pady=20)
+header = tk.Label(app,text="Checklist Box",font=font1)
+header.grid(sticky='n',row=0,column=1)
 
-# กรอบเนื้อหา
-frame = tk.Frame(app)
-frame.pack(expand=False)
+list_box = tk.Listbox(app,height=6,width=10,font=font1,bg='lightgreen')
+list_box.grid(row=1,column=0,padx=10,pady=10)
 
-# กรอบซ้าย
-frame_left = tk.Frame(frame,bd=0.5,relief="solid")
-frame_left.grid(row=0,column=0)
+lists = ['Green','Yellow','Black','Red','Blue','White']
+for i in lists:
+    list_box.insert(tk.END,i)
+    
+# select btn
+select_btn = tk.Button(app,text="Select Colors",width=15,command=select)
+select_btn.grid(row=1,column=1)
 
-# สร้างตัวแปร และใช้ .BooleanVar เพื่อเก็บสถานะของแต่ละ checkbutton
-list1 = tk.BooleanVar()
-list2 = tk.BooleanVar()
-list3 = tk.BooleanVar()
-list4 = tk.BooleanVar()
-list5 = tk.BooleanVar()
-list6 = tk.BooleanVar()
-list7 = tk.BooleanVar()
+selected_list = tk.Listbox(app,height=6,width=10,font=font1,bg='lightgreen')
+selected_list.grid(row=1,column=2,padx=10,pady=10)
 
-check1 = tk.Checkbutton(frame_left,text="Monday",variable=list1)
-check1.grid(sticky="w",padx=(5,5),pady=(5,5))
-
-check2 = tk.Checkbutton(frame_left,text="Tuesday",variable=list2)
-check2.grid(sticky="w",padx=(5,5),pady=(5,5))
-
-check3 = tk.Checkbutton(frame_left,text="Wednesday",variable=list3)
-check3.grid(sticky="w",padx=(5,5),pady=(5,5))
-
-check4 = tk.Checkbutton(frame_left,text="Thuesday",variable=list4)
-check4.grid(sticky="w",padx=(5,5),pady=(5,5))
-
-check5 = tk.Checkbutton(frame_left,text="Friday",variable=list5)
-check5.grid(sticky="w",padx=(5,5),pady=(5,5))
-
-check6 = tk.Checkbutton(frame_left,text="Saturday",variable=list6)
-check6.grid(sticky="w",padx=(5,5),pady=(5,5))
-
-check7 = tk.Checkbutton(frame_left,text="Sunday",variable=list7)
-check7.grid(sticky="w",padx=(5,5),pady=(5,5))
-
-# select button
-select_btn = tk.Button(frame,text="Select")
-select_btn.grid(row=0,column=1,padx=30)
 
 
 
